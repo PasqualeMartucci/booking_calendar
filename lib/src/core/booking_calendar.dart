@@ -7,42 +7,43 @@ import '../model/enums.dart';
 import 'booking_controller.dart';
 
 class BookingCalendar extends StatelessWidget {
-  const BookingCalendar(
-      {Key? key,
-      required this.bookingService,
-      required this.getBookingStream,
-      required this.uploadBooking,
-      required this.convertStreamResultToDateTimeRanges,
-      this.bookingExplanation,
-      this.bookingGridCrossAxisCount,
-      this.bookingGridChildAspectRatio,
-      this.formatDateTime,
-      this.bookingButtonText,
-      this.bookingButtonColor,
-      this.bookedSlotColor,
-      this.selectedSlotColor,
-      this.availableSlotColor,
-      this.bookedSlotText,
-      this.selectedSlotText,
-      this.availableSlotText,
-      this.availableSlotTextStyle,
-      this.selectedSlotTextStyle,
-      this.bookedSlotTextStyle,
-      this.gridScrollPhysics,
-      this.loadingWidget,
-      this.errorWidget,
-      this.uploadingWidget,
-      this.wholeDayIsBookedWidget,
-      this.pauseSlotColor,
-      this.pauseSlotText,
-      this.pauseSlots,
-      this.hideBreakTime,
-      this.locale,
-      this.startingDayOfWeek = StartingDayOfWeek.monday,
-      this.disabledDays,
-      this.disabledDates,
-      this.lastDay})
-      : super(key: key);
+  const BookingCalendar({
+    Key? key,
+    required this.bookingService,
+    required this.getBookingStream,
+    required this.uploadBooking,
+    required this.convertStreamResultToDateTimeRanges,
+    this.bookingExplanation,
+    this.bookingGridCrossAxisCount,
+    this.bookingGridChildAspectRatio,
+    this.formatDateTime,
+    this.bookingButtonText,
+    this.bookingButtonColor,
+    this.bookedSlotColor,
+    this.selectedSlotColor,
+    this.availableSlotColor,
+    this.bookedSlotText,
+    this.selectedSlotText,
+    this.availableSlotText,
+    this.availableSlotTextStyle,
+    this.selectedSlotTextStyle,
+    this.bookedSlotTextStyle,
+    this.gridScrollPhysics,
+    this.loadingWidget,
+    this.errorWidget,
+    this.uploadingWidget,
+    this.wholeDayIsBookedWidget,
+    this.pauseSlotColor,
+    this.pauseSlotText,
+    this.pauseSlots,
+    this.hideBreakTime,
+    this.locale,
+    this.startingDayOfWeek = StartingDayOfWeek.monday,
+    this.disabledDays,
+    this.disabledDates,
+    this.lastDay,
+    this.isVisibileformatButtonVisible = false,
+  }) : super(key: key);
 
   ///for the Calendar picker we use: [TableCalendar]
   ///credit: https://pub.dev/packages/table_calendar
@@ -146,6 +147,8 @@ class BookingCalendar extends StatelessWidget {
   ///Concrete List of dates when the day is unavailable, eg: holiday, everything is booked or you need to close or something.
   final List<DateTime>? disabledDates;
 
+  final bool isVisibileformatButtonVisible;
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -185,6 +188,7 @@ class BookingCalendar extends StatelessWidget {
         disabledDays: disabledDays,
         lastDay: lastDay,
         disabledDates: disabledDates,
+        isVisibileformatButtonVisible: isVisibileformatButtonVisible,
       ),
     );
   }

@@ -48,6 +48,7 @@ class BookingCalendarMain extends StatefulWidget {
     this.disabledDays,
     this.disabledDates,
     this.lastDay,
+    this.isVisibileformatButtonVisible = false,
   }) : super(key: key);
 
   final Stream<dynamic>? Function(
@@ -93,6 +94,9 @@ class BookingCalendarMain extends StatefulWidget {
 
   final Widget? wholeDayIsBookedWidget;
 
+//Added optional HeaderStyle customizations.
+  final bool isVisibileformatButtonVisible;
+
   @override
   State<BookingCalendarMain> createState() => _BookingCalendarMainState();
 }
@@ -114,7 +118,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
     controller.selectFirstDayByHoliday(startOfDay, endOfDay);
   }
 
-  CalendarFormat _calendarFormat = CalendarFormat.twoWeeks;
+  CalendarFormat _calendarFormat = CalendarFormat.week;
 
   late DateTime _selectedDay;
   late DateTime _focusedDay;
@@ -154,7 +158,6 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
   @override
   Widget build(BuildContext context) {
     controller = context.watch<BookingController>();
-
     return Consumer<BookingController>(
       builder: (_, controller, __) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
@@ -164,6 +167,12 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                 children: [
                   CommonCard(
                     child: TableCalendar(
+                      headerStyle: HeaderStyle(
+                        titleCentered:
+                            widget.isVisibileformatButtonVisible ? false : true,
+                        formatButtonVisible:
+                            widget.isVisibileformatButtonVisible,
+                      ),
                       startingDayOfWeek: widget.startingDayOfWeek?.toTC() ??
                           tc.StartingDayOfWeek.monday,
                       holidayPredicate: (day) {

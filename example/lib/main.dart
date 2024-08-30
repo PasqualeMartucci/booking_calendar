@@ -91,6 +91,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
           ),
           body: Center(
             child: BookingCalendar(
+              isVisibileformatButtonVisible: false,
               bookingService: mockBookingService,
               convertStreamResultToDateTimeRanges: convertStreamResultMock,
               getBookingStream: getBookingStreamMock,
@@ -100,7 +101,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               hideBreakTime: false,
               loadingWidget: const Text('Fetching data...'),
               uploadingWidget: const CircularProgressIndicator(),
-              locale: 'hu_HU',
+              locale: 'it_IT',
               startingDayOfWeek: StartingDayOfWeek.tuesday,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
