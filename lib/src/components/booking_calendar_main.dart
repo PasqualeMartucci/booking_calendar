@@ -162,7 +162,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
     }
     for (var i = 1; i <= 7; i++) {
       if (!widget.disabledDays!.contains(now.weekday + i) &&
-          !disabledDatesTmp!.contains(DateFormat('yyyy-MM-dd')
+          !disabledDatesTmp.contains(DateFormat('yyyy-MM-dd')
               .format(DateTime.parse(formattedNow).add(Duration(days: i))))) {
         return i;
       }
