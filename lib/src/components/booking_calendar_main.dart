@@ -13,6 +13,7 @@ import 'booking_explanation.dart';
 import 'booking_slot.dart';
 import 'common_button.dart';
 import 'common_card.dart';
+import 'package:intl/intl.dart';
 
 class BookingCalendarMain extends StatefulWidget {
   const BookingCalendarMain({
@@ -136,14 +137,37 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
   }
 
   DateTime calculateFirstDay() {
-    final now = DateTime.now();
+    DateTime now = DateTime.now();
     if (widget.disabledDays != null) {
-      return widget.disabledDays!.contains(now.weekday)
+      now = widget.disabledDays!.contains(now.weekday)
           ? now.add(Duration(days: getFirstMissingDay(now.weekday)))
           : now;
-    } else {
-      return DateTime.now();
     }
+    if (widget.disabledDates != null) {
+      for (var date in widget.disabledDates!) {
+        if (isSameDay(date, now)) {
+          return now.add(Duration(days: getFirstMissingDayDisabledDates(now)));
+        }
+      }
+    }
+    return now;
+  }
+
+  int getFirstMissingDayDisabledDates(DateTime now) {
+    String formattedNow = DateFormat('yyyy-MM-dd').format(now);
+    List<String> disabledDatesTmp = [];
+    for (var date in widget.disabledDates!) {
+      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      disabledDatesTmp.add(formattedDate);
+    }
+    for (var i = 1; i <= 7; i++) {
+      if (!widget.disabledDays!.contains(now.weekday + i) &&
+          !disabledDatesTmp!.contains(DateFormat('yyyy-MM-dd')
+              .format(DateTime.parse(formattedNow).add(Duration(days: i))))) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   int getFirstMissingDay(int now) {
@@ -167,6 +191,9 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                 children: [
                   CommonCard(
                     child: TableCalendar(
+                      calendarStyle: const CalendarStyle(
+                        isTodayHighlighted: true,
+                      ),
                       headerStyle: HeaderStyle(
                         titleCentered:
                             widget.isVisibileformatButtonVisible ? false : true,
@@ -212,8 +239,6 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                           DateTime.now().add(const Duration(days: 1000)),
                       focusedDay: _focusedDay,
                       calendarFormat: _calendarFormat,
-                      calendarStyle:
-                          const CalendarStyle(isTodayHighlighted: true),
                       selectedDayPredicate: (day) {
                         return isSameDay(_selectedDay, day);
                       },

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -26,7 +28,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     mockBookingService = BookingService(
         serviceName: 'Mock Service',
         serviceDuration: 30,
-        bookingEnd: DateTime(now.year, now.month, now.day, 18, 0),
+        bookingEnd: DateTime(now.year, now.month, now.day, 9, 0),
         bookingStart: DateTime(now.year, now.month, now.day, 8, 0));
   }
 
@@ -50,7 +52,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     ///take care this is only mock, so if you add today as disabledDays it will still be visible on the first load
     ///disabledDays will properly work with real data
     DateTime first = now;
-    DateTime tomorrow = now.add(const Duration(days: 1));
+
     DateTime second = now.add(const Duration(minutes: 55));
     DateTime third = now.subtract(const Duration(minutes: 240));
     DateTime fourth = now.subtract(const Duration(minutes: 500));
@@ -63,10 +65,6 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     converted.add(DateTimeRange(
         start: fourth, end: fourth.add(const Duration(minutes: 50))));
 
-    //book whole day example
-    converted.add(DateTimeRange(
-        start: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 5, 0),
-        end: DateTime(tomorrow.year, tomorrow.month, tomorrow.day, 23, 0)));
     return converted;
   }
 
@@ -102,7 +100,7 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               loadingWidget: const Text('Fetching data...'),
               uploadingWidget: const CircularProgressIndicator(),
               locale: 'it_IT',
-              startingDayOfWeek: StartingDayOfWeek.tuesday,
+              startingDayOfWeek: StartingDayOfWeek.monday,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
               //disabledDates: [DateTime(2023, 1, 20)],
