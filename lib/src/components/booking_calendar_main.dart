@@ -160,7 +160,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
       String formattedDate = DateFormat('yyyy-MM-dd').format(date);
       disabledDatesTmp.add(formattedDate);
     }
-    for (var i = 1; i <= 7; i++) {
+    for (var i = 1; i <= 45; i++) {
       if (!widget.disabledDays!.contains(now.weekday + i) &&
           !disabledDatesTmp.contains(DateFormat('yyyy-MM-dd')
               .format(DateTime.parse(formattedNow).add(Duration(days: i))))) {
