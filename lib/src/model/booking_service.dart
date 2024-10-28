@@ -38,6 +38,8 @@ class BookingService {
   ///The selected booking slot's ending time
   DateTime bookingEnd;
 
+  final String? driver;
+
   BookingService({
     this.userEmail,
     this.userPhoneNumber,
@@ -49,6 +51,7 @@ class BookingService {
     required this.serviceName,
     required this.serviceDuration,
     this.servicePrice,
+    this.driver,
   });
 
   BookingService.fromJson(Map<String, dynamic> json)
@@ -61,7 +64,8 @@ class BookingService {
         serviceId = json['serviceId'] as String?,
         serviceName = json['serviceName'] as String,
         serviceDuration = json['serviceDuration'] as int,
-        servicePrice = json['servicePrice'] as int?;
+        servicePrice = json['servicePrice'] as int?,
+        driver = json['driver'] as String?;
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -74,5 +78,6 @@ class BookingService {
         'servicePrice': servicePrice,
         'bookingStart': bookingStart.toIso8601String(),
         'bookingEnd': bookingEnd.toIso8601String(),
+        'driver': driver ?? 'n.d.',
       };
 }
