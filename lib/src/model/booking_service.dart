@@ -42,7 +42,7 @@ class BookingService {
 
   final String? driver;
 
-  final DateTimeRange? pauseSlot;
+  final List<DateTimeRange>? pauseSlot;
 
   BookingService({
     this.userEmail,
@@ -71,7 +71,7 @@ class BookingService {
         serviceDuration = json['serviceDuration'] as int,
         servicePrice = json['servicePrice'] as int?,
         driver = json['driver'] as String?,
-        pauseSlot = json['pauseSlot'] as DateTimeRange;
+        pauseSlot = json['pauseSlot'] as List<DateTimeRange>?;
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
