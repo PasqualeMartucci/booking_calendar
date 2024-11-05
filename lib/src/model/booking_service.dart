@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class BookingService {
   ///
   /// The userId of the currently logged user
@@ -42,8 +40,6 @@ class BookingService {
 
   final String? driver;
 
-  final List<DateTimeRange>? pauseSlot;
-
   BookingService({
     this.userEmail,
     this.userPhoneNumber,
@@ -56,7 +52,6 @@ class BookingService {
     required this.serviceDuration,
     this.servicePrice,
     this.driver,
-    this.pauseSlot,
   });
 
   BookingService.fromJson(Map<String, dynamic> json)
@@ -70,8 +65,7 @@ class BookingService {
         serviceName = json['serviceName'] as String,
         serviceDuration = json['serviceDuration'] as int,
         servicePrice = json['servicePrice'] as int?,
-        driver = json['driver'] as String?,
-        pauseSlot = json['pauseSlot'] as List<DateTimeRange>?;
+        driver = json['driver'] as String?;
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -85,6 +79,5 @@ class BookingService {
         'bookingStart': bookingStart.toIso8601String(),
         'bookingEnd': bookingEnd.toIso8601String(),
         'driver': driver ?? 'n.d.',
-        'pauseSlot': pauseSlot ?? [],
       };
 }
