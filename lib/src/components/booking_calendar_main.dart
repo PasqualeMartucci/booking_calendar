@@ -193,6 +193,21 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                     child: TableCalendar(
                       calendarStyle: const CalendarStyle(
                         isTodayHighlighted: true,
+                        selectedTextStyle: TextStyle(color: Colors.black),
+                        /* selectedDecoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.symmetric(
+                            horizontal: BorderSide(color: Colors.blueAccent),
+                            vertical: BorderSide(color: Colors.blueAccent),
+                          ),
+                        ), */
+                        holidayDecoration: BoxDecoration(
+                          color: Colors.red,
+                          shape: BoxShape.circle,
+                        ),
+                        holidayTextStyle: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                       headerStyle: HeaderStyle(
                         titleCentered:
@@ -216,21 +231,19 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                       enabledDayPredicate: (day) {
                         if (widget.disabledDays == null &&
                             widget.disabledDates == null) return true;
-
                         bool isEnabled = true;
-                        if (widget.disabledDates != null) {
+                        /*if (widget.disabledDates != null) {
                           for (var holiday in widget.disabledDates!) {
                             if (isSameDay(day, holiday)) {
                               isEnabled = false;
                             }
                           }
                           if (!isEnabled) return false;
-                        }
+                        } */
                         if (widget.disabledDays != null) {
                           isEnabled =
                               !widget.disabledDays!.contains(day.weekday);
                         }
-
                         return isEnabled;
                       },
                       locale: widget.locale,

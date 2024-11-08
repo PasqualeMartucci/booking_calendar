@@ -103,8 +103,8 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               startingDayOfWeek: StartingDayOfWeek.monday,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
-              //disabledDates: [DateTime(2023, 1, 20)],
-              //disabledDays: [6, 7],
+              disabledDates: [DateTime(2024, 11, 11)],
+              disabledDays: [6, 7],
             ),
           ),
         ));
