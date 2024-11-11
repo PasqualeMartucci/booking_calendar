@@ -27,8 +27,8 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
     // DateTime.now().endOfDay
     mockBookingService = BookingService(
         serviceName: 'Mock Service',
-        serviceDuration: 30,
-        bookingEnd: DateTime(now.year, now.month, now.day, 9, 0),
+        serviceDuration: 60,
+        bookingEnd: DateTime(now.year, now.month, now.day, 13, 0),
         bookingStart: DateTime(now.year, now.month, now.day, 8, 0));
   }
 
@@ -71,8 +71,11 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
   List<DateTimeRange> generatePauseSlots() {
     return [
       DateTimeRange(
-          start: DateTime(now.year, now.month, now.day, 12, 0),
-          end: DateTime(now.year, now.month, now.day, 13, 0))
+        start: DateTime(now.year, now.month, now.day, 12, 0)
+            .add(const Duration(days: 1)),
+        end: DateTime(now.year, now.month, now.day, 12, 30)
+            .add(const Duration(days: 1)),
+      )
     ];
   }
 
@@ -103,8 +106,8 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               startingDayOfWeek: StartingDayOfWeek.monday,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
-              disabledDates: [DateTime(2024, 11, 11)],
-              disabledDays: [6, 7],
+              //disabledDates: [DateTime(2024, 11, 11)],
+              //disabledDays: [6, 7,
             ),
           ),
         ));

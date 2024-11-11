@@ -58,7 +58,7 @@ class BookingController extends ChangeNotifier {
   bool isWholeDayBooked() {
     bool isBooked = true;
     for (var i = 0; i < allBookingSlots.length; i++) {
-      if (!isSlotBooked(i)) {
+      if (!isSlotBooked(i) && !isSlotInPauseTime(allBookingSlots[i])) {
         isBooked = false;
         break;
       }
