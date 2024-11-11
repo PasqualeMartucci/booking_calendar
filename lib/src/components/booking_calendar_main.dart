@@ -105,7 +105,7 @@ class BookingCalendarMain extends StatefulWidget {
 class _BookingCalendarMainState extends State<BookingCalendarMain> {
   late BookingController controller;
   final now = DateTime.now();
-
+  final dateFormatter = DateFormat('yyyy-MM-dd');
   @override
   void initState() {
     super.initState();
@@ -154,15 +154,15 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
   }
 
   int getFirstMissingDayDisabledDates(DateTime now) {
-    String formattedNow = DateFormat('yyyy-MM-dd').format(now);
+    String formattedNow = dateFormatter.format(now);
     List<String> disabledDatesTmp = [];
     for (var date in widget.disabledDates!) {
-      String formattedDate = DateFormat('yyyy-MM-dd').format(date);
+      String formattedDate = dateFormatter.format(date);
       disabledDatesTmp.add(formattedDate);
     }
     for (var i = 1; i <= 45; i++) {
       if (!widget.disabledDays!.contains(now.weekday + i) &&
-          !disabledDatesTmp.contains(DateFormat('yyyy-MM-dd')
+          !disabledDatesTmp.contains(dateFormatter
               .format(DateTime.parse(formattedNow).add(Duration(days: i))))) {
         return i;
       }
@@ -249,7 +249,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                       locale: widget.locale,
                       firstDay: calculateFirstDay(),
                       lastDay: widget.lastDay ??
-                          DateTime.now().add(const Duration(days: 1000)),
+                          DateTime.now().add(const Duration(days: 120)),
                       focusedDay: _focusedDay,
                       calendarFormat: _calendarFormat,
                       selectedDayPredicate: (day) {
