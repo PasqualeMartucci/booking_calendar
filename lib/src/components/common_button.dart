@@ -46,20 +46,25 @@ class CommonButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context).textTheme;
 
-    return InkWell(
-      onTap: (isDisabled == null || isDisabled == false) ? onTap : null,
-      child: Container(
-        width: width ?? double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 12),
-        decoration: BoxDecoration(
-          color: _getButtonColor(),
-          borderRadius: const BorderRadius.all(Radius.circular(24)),
-          border: (isActive == false && isDisabled == false) ? Border.all(color: Colors.teal, width: 2) : null,
-        ),
-        child: Text(
-          text,
-          style: buttonStyle ?? themeData.labelLarge!.copyWith(color: _getTextColor()),
-          textAlign: TextAlign.center,
+    return SafeArea(
+      child: InkWell(
+        onTap: (isDisabled == null || isDisabled == false) ? onTap : null,
+        child: Container(
+          width: width ?? double.infinity,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: _getButtonColor(),
+            borderRadius: const BorderRadius.all(Radius.circular(24)),
+            border: (isActive == false && isDisabled == false)
+                ? Border.all(color: Colors.teal, width: 2)
+                : null,
+          ),
+          child: Text(
+            text,
+            style: buttonStyle ??
+                themeData.labelLarge!.copyWith(color: _getTextColor()),
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
