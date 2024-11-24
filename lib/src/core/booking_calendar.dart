@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../components/booking_calendar_main.dart';
 import '../model/booking_service.dart';
-import '../model/enums.dart';
+import '../model/enums.dart' as bc;
 import 'booking_controller.dart';
 
 class BookingCalendar extends StatelessWidget {
@@ -38,11 +39,12 @@ class BookingCalendar extends StatelessWidget {
     this.pauseSlots,
     this.hideBreakTime,
     this.locale,
-    this.startingDayOfWeek = StartingDayOfWeek.monday,
+    this.startingDayOfWeek = bc.StartingDayOfWeek.monday,
     this.disabledDays,
     this.disabledDates,
     this.lastDay,
     this.isVisibileformatButtonVisible = false,
+    this.calendarStyle,
   }) : super(key: key);
 
   ///for the Calendar picker we use: [TableCalendar]
@@ -135,7 +137,7 @@ class BookingCalendar extends StatelessWidget {
   final String? locale;
 
   ///What is the default starting day of the week in the tablecalendar. See [https://pub.dev/documentation/table_calendar/latest/table_calendar/StartingDayOfWeek.html]
-  final StartingDayOfWeek? startingDayOfWeek;
+  final bc.StartingDayOfWeek? startingDayOfWeek;
 
   ///The days inside this list, won't be available in the calendar. Similarly to [DateTime.weekday] property, a week starts with Monday, which has the value 1. (Sunday=7)
   ///if you pass a number which includes "Today" as well, the first and focused day in the calendar will be the first available day after today
@@ -148,6 +150,8 @@ class BookingCalendar extends StatelessWidget {
   final List<DateTime>? disabledDates;
 
   final bool isVisibileformatButtonVisible;
+
+  final CalendarStyle? calendarStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -189,6 +193,7 @@ class BookingCalendar extends StatelessWidget {
         lastDay: lastDay,
         disabledDates: disabledDates,
         isVisibileformatButtonVisible: isVisibileformatButtonVisible,
+        calendarStyle: calendarStyle,
       ),
     );
   }

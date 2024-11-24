@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:table_calendar/table_calendar.dart' as tc
     show StartingDayOfWeek;
-
 import '../core/booking_controller.dart';
 import '../model/booking_service.dart';
 import '../model/enums.dart' as bc;
@@ -12,7 +11,6 @@ import 'booking_dialog.dart';
 import 'booking_explanation.dart';
 import 'booking_slot.dart';
 import 'common_button.dart';
-import 'common_card.dart';
 import 'package:intl/intl.dart';
 
 class BookingCalendarMain extends StatefulWidget {
@@ -50,6 +48,7 @@ class BookingCalendarMain extends StatefulWidget {
     this.disabledDates,
     this.lastDay,
     this.isVisibileformatButtonVisible = false,
+    this.calendarStyle,
   }) : super(key: key);
 
   final Stream<dynamic>? Function(
@@ -97,6 +96,8 @@ class BookingCalendarMain extends StatefulWidget {
 
 //Added optional HeaderStyle customizations.
   final bool isVisibileformatButtonVisible;
+
+  final CalendarStyle? calendarStyle;
 
   @override
   State<BookingCalendarMain> createState() => _BookingCalendarMainState();
@@ -189,50 +190,49 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
             ? widget.uploadingWidget ?? const BookingDialog()
             : Column(
                 children: [
-                  CommonCard(
-                    child: TableCalendar(
-                      calendarStyle: const CalendarStyle(
-                        isTodayHighlighted: true,
-                        selectedTextStyle: TextStyle(color: Colors.black),
-                        /* selectedDecoration: BoxDecoration(
+                  TableCalendar(
+                    calendarStyle: widget.calendarStyle ??
+                        const CalendarStyle(
+                          isTodayHighlighted: true,
+                          selectedTextStyle: TextStyle(color: Colors.black),
+                          /* selectedDecoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.symmetric(
                             horizontal: BorderSide(color: Colors.blueAccent),
                             vertical: BorderSide(color: Colors.blueAccent),
                           ),
                         ), */
-                        holidayDecoration: BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
+                          holidayDecoration: BoxDecoration(
+                            color: Colors.red,
+                            shape: BoxShape.circle,
+                          ),
+                          holidayTextStyle: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                        holidayTextStyle: TextStyle(
-                          color: Colors.white,
-                        ),
-                      ),
-                      headerStyle: HeaderStyle(
-                        titleCentered:
-                            widget.isVisibileformatButtonVisible ? false : true,
-                        formatButtonVisible:
-                            widget.isVisibileformatButtonVisible,
-                      ),
-                      startingDayOfWeek: widget.startingDayOfWeek?.toTC() ??
-                          tc.StartingDayOfWeek.monday,
-                      holidayPredicate: (day) {
-                        if (widget.disabledDates == null) return false;
+                    headerStyle: HeaderStyle(
+                      titleCentered:
+                          widget.isVisibileformatButtonVisible ? false : true,
+                      formatButtonVisible: widget.isVisibileformatButtonVisible,
+                    ),
+                    startingDayOfWeek: widget.startingDayOfWeek?.toTC() ??
+                        tc.StartingDayOfWeek.monday,
+                    holidayPredicate: (day) {
+                      if (widget.disabledDates == null) return false;
 
-                        bool isHoliday = false;
-                        for (var holiday in widget.disabledDates!) {
-                          if (isSameDay(day, holiday)) {
-                            isHoliday = true;
-                          }
+                      bool isHoliday = false;
+                      for (var holiday in widget.disabledDates!) {
+                        if (isSameDay(day, holiday)) {
+                          isHoliday = true;
                         }
-                        return isHoliday;
-                      },
-                      enabledDayPredicate: (day) {
-                        if (widget.disabledDays == null &&
-                            widget.disabledDates == null) return true;
-                        bool isEnabled = true;
-                        /*if (widget.disabledDates != null) {
+                      }
+                      return isHoliday;
+                    },
+                    enabledDayPredicate: (day) {
+                      if (widget.disabledDays == null &&
+                          widget.disabledDates == null) return true;
+                      bool isEnabled = true;
+                      /*if (widget.disabledDates != null) {
                           for (var holiday in widget.disabledDates!) {
                             if (isSameDay(day, holiday)) {
                               isEnabled = false;
@@ -240,41 +240,39 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                           }
                           if (!isEnabled) return false;
                         } */
-                        if (widget.disabledDays != null) {
-                          isEnabled =
-                              !widget.disabledDays!.contains(day.weekday);
-                        }
-                        return isEnabled;
-                      },
-                      locale: widget.locale,
-                      firstDay: calculateFirstDay(),
-                      lastDay: widget.lastDay ??
-                          DateTime.now().add(const Duration(days: 120)),
-                      focusedDay: _focusedDay,
-                      calendarFormat: _calendarFormat,
-                      selectedDayPredicate: (day) {
-                        return isSameDay(_selectedDay, day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        if (!isSameDay(_selectedDay, selectedDay)) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay = focusedDay;
-                          });
-                          selectNewDateRange();
-                        }
-                      },
-                      onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
-                          setState(() {
-                            _calendarFormat = format;
-                          });
-                        }
-                      },
-                      onPageChanged: (focusedDay) {
-                        _focusedDay = focusedDay;
-                      },
-                    ),
+                      if (widget.disabledDays != null) {
+                        isEnabled = !widget.disabledDays!.contains(day.weekday);
+                      }
+                      return isEnabled;
+                    },
+                    locale: widget.locale,
+                    firstDay: calculateFirstDay(),
+                    lastDay: widget.lastDay ??
+                        DateTime.now().add(const Duration(days: 120)),
+                    focusedDay: _focusedDay,
+                    calendarFormat: _calendarFormat,
+                    selectedDayPredicate: (day) {
+                      return isSameDay(_selectedDay, day);
+                    },
+                    onDaySelected: (selectedDay, focusedDay) {
+                      if (!isSameDay(_selectedDay, selectedDay)) {
+                        setState(() {
+                          _selectedDay = selectedDay;
+                          _focusedDay = focusedDay;
+                        });
+                        selectNewDateRange();
+                      }
+                    },
+                    onFormatChanged: (format) {
+                      if (_calendarFormat != format) {
+                        setState(() {
+                          _calendarFormat = format;
+                        });
+                      }
+                    },
+                    onPageChanged: (focusedDay) {
+                      _focusedDay = focusedDay;
+                    },
                   ),
                   const SizedBox(height: 8),
                   widget.bookingExplanation ??
@@ -322,8 +320,9 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                       ///this snapshot should be converted to List<DateTimeRange>
                       final data = snapshot.requireData;
                       controller.generateBookedSlots(
-                          widget.convertStreamResultToDateTimeRanges(
-                              streamResult: data));
+                        widget.convertStreamResultToDateTimeRanges(
+                            streamResult: data),
+                      );
 
                       return Expanded(
                         child: (widget.wholeDayIsBookedWidget != null &&

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:table_calendar/table_calendar.dart' as cs show CalendarStyle;
 
 void main() {
   initializeDateFormatting()
@@ -106,8 +107,18 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               startingDayOfWeek: StartingDayOfWeek.monday,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
-              //disabledDates: [DateTime(2024, 11, 11)],
-              //disabledDays: [6, 7,
+              calendarStyle: const cs.CalendarStyle(
+                isTodayHighlighted: false,
+                weekendTextStyle: TextStyle(color: Colors.amber),
+                selectedTextStyle: TextStyle(color: Colors.black),
+                holidayDecoration: BoxDecoration(
+                  color: Colors.yellow,
+                  shape: BoxShape.circle,
+                ),
+                holidayTextStyle: TextStyle(
+                  color: Colors.blue,
+                ),
+              ),
             ),
           ),
         ));
