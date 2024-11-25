@@ -45,6 +45,9 @@ class BookingCalendar extends StatelessWidget {
     this.lastDay,
     this.isVisibileformatButtonVisible = false,
     this.calendarStyle,
+    this.daysOfWeekStyle,
+    this.daysOfWeekVisible,
+    this.headerStyle,
   }) : super(key: key);
 
   ///for the Calendar picker we use: [TableCalendar]
@@ -153,6 +156,10 @@ class BookingCalendar extends StatelessWidget {
 
   final CalendarStyle? calendarStyle;
 
+  final DaysOfWeekStyle? daysOfWeekStyle;
+  final bool? daysOfWeekVisible;
+  final HeaderStyle? headerStyle;
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -194,6 +201,9 @@ class BookingCalendar extends StatelessWidget {
         disabledDates: disabledDates,
         isVisibileformatButtonVisible: isVisibileformatButtonVisible,
         calendarStyle: calendarStyle,
+        daysOfWeekStyle: daysOfWeekStyle,
+        daysOfWeekVisible: daysOfWeekVisible,
+        headerStyle: headerStyle,
       ),
     );
   }

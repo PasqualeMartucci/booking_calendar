@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:booking_calendar/booking_calendar.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:table_calendar/table_calendar.dart' as cs show CalendarStyle;
+import 'package:table_calendar/table_calendar.dart' as cs
+    show CalendarStyle, DaysOfWeekStyle;
 
 void main() {
   initializeDateFormatting()
@@ -118,6 +119,9 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
                 holidayTextStyle: TextStyle(
                   color: Colors.blue,
                 ),
+              ),
+              daysOfWeekStyle: const cs.DaysOfWeekStyle(
+                weekdayStyle: TextStyle(color: Colors.black),
               ),
             ),
           ),

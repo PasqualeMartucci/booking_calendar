@@ -49,6 +49,9 @@ class BookingCalendarMain extends StatefulWidget {
     this.lastDay,
     this.isVisibileformatButtonVisible = false,
     this.calendarStyle,
+    this.daysOfWeekStyle,
+    this.daysOfWeekVisible,
+    this.headerStyle,
   }) : super(key: key);
 
   final Stream<dynamic>? Function(
@@ -98,7 +101,9 @@ class BookingCalendarMain extends StatefulWidget {
   final bool isVisibileformatButtonVisible;
 
   final CalendarStyle? calendarStyle;
-
+  final DaysOfWeekStyle? daysOfWeekStyle;
+  final bool? daysOfWeekVisible;
+  final HeaderStyle? headerStyle;
   @override
   State<BookingCalendarMain> createState() => _BookingCalendarMainState();
 }
@@ -210,11 +215,17 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                             color: Colors.white,
                           ),
                         ),
-                    headerStyle: HeaderStyle(
-                      titleCentered:
-                          widget.isVisibileformatButtonVisible ? false : true,
-                      formatButtonVisible: widget.isVisibileformatButtonVisible,
-                    ),
+                    daysOfWeekVisible: widget.daysOfWeekVisible ?? true,
+                    daysOfWeekStyle:
+                        widget.daysOfWeekStyle ?? const DaysOfWeekStyle(),
+                    headerStyle: widget.headerStyle ??
+                        HeaderStyle(
+                          titleCentered: widget.isVisibileformatButtonVisible
+                              ? false
+                              : true,
+                          formatButtonVisible:
+                              widget.isVisibileformatButtonVisible,
+                        ),
                     startingDayOfWeek: widget.startingDayOfWeek?.toTC() ??
                         tc.StartingDayOfWeek.monday,
                     holidayPredicate: (day) {
