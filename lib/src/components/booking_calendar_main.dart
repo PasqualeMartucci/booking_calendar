@@ -25,6 +25,7 @@ class BookingCalendarMain extends StatefulWidget {
     this.formatDateTime,
     this.bookingButtonText,
     this.bookingButtonColor,
+    this.buttonInActiveColor,
     this.bookedSlotColor,
     this.selectedSlotColor,
     this.availableSlotColor,
@@ -68,6 +69,7 @@ class BookingCalendarMain extends StatefulWidget {
   final String Function(DateTime dt)? formatDateTime;
   final String? bookingButtonText;
   final Color? bookingButtonColor;
+  final Color? buttonInActiveColor;
   final Color? bookedSlotColor;
   final Color? selectedSlotColor;
   final Color? availableSlotColor;
@@ -405,6 +407,7 @@ class _BookingCalendarMainState extends State<BookingCalendarMain> {
                     },
                     isDisabled: controller.selectedSlot == -1,
                     buttonActiveColor: widget.bookingButtonColor,
+                    buttonInActiveColor: widget.buttonInActiveColor,
                   ),
                 ],
               ),

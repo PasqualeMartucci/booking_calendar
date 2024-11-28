@@ -20,6 +20,7 @@ class BookingCalendar extends StatelessWidget {
     this.formatDateTime,
     this.bookingButtonText,
     this.bookingButtonColor,
+    this.buttonInActiveColor,
     this.bookedSlotColor,
     this.selectedSlotColor,
     this.availableSlotColor,
@@ -99,6 +100,7 @@ class BookingCalendar extends StatelessWidget {
 
   ///The color of the booking button
   final Color? bookingButtonColor;
+  final Color? buttonInActiveColor;
 
   ///The [Color] and the [Text] of the
   ///already booked, currently selected, yet available slot (or slot for the break time)
@@ -170,6 +172,7 @@ class BookingCalendar extends StatelessWidget {
         getBookingStream: getBookingStream,
         uploadBooking: uploadBooking,
         bookingButtonColor: bookingButtonColor,
+        buttonInActiveColor: buttonInActiveColor,
         bookingButtonText: bookingButtonText,
         bookingExplanation: bookingExplanation,
         bookingGridChildAspectRatio: bookingGridChildAspectRatio,

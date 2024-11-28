@@ -106,6 +106,8 @@ class _BookingCalendarDemoAppState extends State<BookingCalendarDemoApp> {
               uploadingWidget: const CircularProgressIndicator(),
               locale: 'it_IT',
               startingDayOfWeek: StartingDayOfWeek.monday,
+              bookingButtonColor: Colors.blue,
+              buttonInActiveColor: Colors.blue.shade100,
               wholeDayIsBookedWidget:
                   const Text('Sorry, for this day everything is booked'),
               calendarStyle: const cs.CalendarStyle(
