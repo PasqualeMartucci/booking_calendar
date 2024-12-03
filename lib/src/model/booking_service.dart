@@ -39,6 +39,7 @@ class BookingService {
   DateTime bookingEnd;
 
   final String? driver;
+  final String? driverName;
 
   BookingService({
     this.userEmail,
@@ -52,6 +53,7 @@ class BookingService {
     required this.serviceDuration,
     this.servicePrice,
     this.driver,
+    this.driverName,
   });
 
   BookingService.fromJson(Map<String, dynamic> json)
@@ -65,7 +67,8 @@ class BookingService {
         serviceName = json['serviceName'] as String,
         serviceDuration = json['serviceDuration'] as int,
         servicePrice = json['servicePrice'] as int?,
-        driver = json['driver'] as String?;
+        driver = json['driver'] as String?,
+        driverName = json['driverName'] as String?;
 
   Map<String, dynamic> toJson() => {
         'userId': userId,
@@ -79,5 +82,6 @@ class BookingService {
         'bookingStart': bookingStart.toIso8601String(),
         'bookingEnd': bookingEnd.toIso8601String(),
         'driver': driver ?? 'n.d.',
+        'driverName': driverName ?? 'n.d.',
       };
 }
